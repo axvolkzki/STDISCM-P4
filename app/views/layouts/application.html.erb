@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Stdiscm P4 Frontend" %></title>
+    <title><%= content_for(:title) || "Enrollment System" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -19,6 +19,11 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/login.css">
+    <link href="/assets/stylesheets/student.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <%= javascript_importmap_tags %>
   </head>
 
