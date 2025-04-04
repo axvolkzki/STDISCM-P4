@@ -1,23 +1,22 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./backend
+  authentication:
+    build: ./backend/authentication
     ports:
       - "3001:3000"
-    environment:
-      DATABASE_URL: postgres://user:password@db:5432/dbname
-
-  frontend:
-    build: ./frontend
+  
+  courses:
+    build: ./backend/courses
     ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+      - "3002:3000"
 
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
+  enrollment:
+    build: ./backend/enrollment
+    ports:
+      - "3003:3000"
+
+  grades:
+    build: ./backend/grades
+    ports:
+      - "3004:3000"
