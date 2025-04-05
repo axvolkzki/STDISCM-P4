@@ -1,0 +1,44 @@
+<%= render 'layouts/navbar' %>
+
+<div class="courses-title-container">
+    <h3> ENROLLMENT STEP 1: ADD CLASSES </h3>
+</div>
+
+<div class="view-courses-container">
+    <table>
+        <tr>
+            <th> Class Nbr </th>
+            <th> Course </th>
+            <th> Section </th>
+            <th> Faculty </th>
+            <th> Day/s </th>
+            <th> Time </th>
+            <th> Room </th>
+        </tr>
+
+        <!-- SAMPLE DATA ONW WHAT ITS SUPPOSED TO LOOK LIKE -->
+        <tr>
+            <td> 1110 </td>
+            <td> GERIZAL </td>
+            <td> Y14 </td>
+            <td> Juan Santos </td>
+            <td> TF </td>
+            <td> 1100-1230 </td>
+            <td> LS332 </td>
+        </tr>
+    </table>
+</div>
+
+<div class="search-course-container">
+    <form action="/search" method="GET" class="mt-6">
+        <input type="search" name="query" placeholder="Enter class number" class="w-full p-3 bg-gray-100 border rounded-md shadow-md">
+        <button type="submit" class="mt-2 w-full p-3 rounded-xl shadow-md addCartBtn">Add to Cart</button>
+    </form>
+</div>
+
+
+<div class="proceed-container">
+    <a href="/enrollcourse" class="mt-2 w-[10%] p-3 rounded-xl shadow proceedBtn"> 
+        <button type="submit">Proceed</button>
+    </a>
+</div>

@@ -1,0 +1,34 @@
+#login-container {
+    background-color: #f5fff9;
+}
+
+.login-text {
+    color: #0c240b;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.75rem;
+}
+
+.color-panel {
+    background-color:#0c240b;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;       
+}
+  
+.logo-img {
+max-width: 60%;   
+height: auto;     
+}
+
+.loginBtn {
+    background-color:#436741;
+    font-weight: 600;
+}
+
+.loginBtn:hover {
+    background-color: rgb(119, 168, 112);
+}

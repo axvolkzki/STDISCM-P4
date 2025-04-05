@@ -1,0 +1,2 @@
+class AddgradesController < ApplicationController
+end
