@@ -1,22 +1,20 @@
 version: '3.8'
 
 services:
-  authentication:
-    build: ./backend/authentication
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/rails
     ports:
-      - "3001:3000"
-  
-  courses:
-    build: ./backend/courses
-    ports:
-      - "3002:3000"
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - BUNDLE_PATH=/usr/local/bundle
+    networks:
+      - app-network
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
 
-  enrollment:
-    build: ./backend/enrollment
-    ports:
-      - "3003:3000"
 
-  grades:
-    build: ./backend/grades
-    ports:
-      - "3004:3000"
+networks:
+  app-network:
+    driver: bridge
