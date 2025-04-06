@@ -1,0 +1,28 @@
+<%= render 'layouts/navbar' %>
+
+<div class="courses-title-container">
+    <h3> VIEW AVAILABLE COURSES </h3>
+</div>
+
+<div class="search-course-container">
+    <div id="closed-section-color-coded" class="flex gap-10">
+        <h5> BLUE </h5>
+        <h5> Closed Section </h5>
+    </div>
+
+    <div id="open-section-color-coded" class="flex gap-10">
+        <h5> GREEN </h5>
+        <h5> Open Section </h5>
+    </div>
+
+    <form action="/search" method="GET" class="mt-6">
+        <input type="search" name="query" placeholder="Enter course" class="w-full p-3 bg-gray-100 border rounded-md shadow-md">
+        <button type="submit" class="mt-2 w-full p-3 rounded-xl shadow-md searchCourseBtn">Search</button>
+    </form>
+</div>
+
+<div class="back-container">
+    <a href="/studentdashboard" class="mt-2 w-[10%] p-3 rounded-xl shadow backBtn"> 
+        <button type="submit">Back</button>
+    </a>
+</div>

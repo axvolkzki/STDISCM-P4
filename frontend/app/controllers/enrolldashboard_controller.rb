@@ -1,0 +1,2 @@
+class EnrolldashboardController < ApplicationController
+end

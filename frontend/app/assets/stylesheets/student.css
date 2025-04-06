@@ -1,0 +1,247 @@
+/* Student Information */
+.student-info-container {
+    display: flex;
+    justify-content: left;
+    margin-left: 5rem;
+    margin-top: 2rem;
+}
+
+.student-info h3 {
+    color:  #0c240b;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+/* Dashboard Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.student-dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 2rem auto 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; 
+}
+
+.student-dashboard-item {
+    background-color: #0c240b;
+    color: #f5fff9;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 2rem 4rem;
+    box-shadow: 5px 5px 4px grey;
+    text-align: center;
+    margin: 10px;
+    width: auto; 
+    display: inline-block; 
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.student-dashboard-item:hover {
+    background-color: #467145;
+    cursor: pointer;
+    transform: scale(1.05);  
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .navbar {
+        text-align: left; 
+        padding: 8px;
+    }
+
+    .navbar img {
+        width: 120px; 
+    }
+
+    .student-dashboard-container {
+        flex-direction: column; 
+        margin: 5rem auto;
+    }
+
+    .student-dashboard-item {
+        width: 80%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        text-align: center; 
+    }
+
+    .navbar img {
+        width: 100px;
+    }
+
+    .student-dashboard-container {
+        flex-direction: column; 
+        margin: 3rem auto; 
+    }
+
+    .student-dashboard-item {
+        width: 100%;
+    }
+}
+
+/* General Styles */
+.courses-title-container h3 {
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+.searchCourseBtn, .addCartBtn {
+    background-color: #0c240b;
+    color: #f5fff9;
+    font-weight: 600;
+    transition: transform 0.3s ease;  
+}
+
+.searchCourseBtn:hover,
+.addCartBtn:hover {
+    background-color: #467145;
+    cursor: pointer;
+    transform: scale(1.05);  
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid;
+    text-align: center;
+}
+
+th {
+    background-color: rgb(24, 96, 24);    
+    color: white;
+}
+
+/* Search Course Styles */
+.search-course-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
+}
+
+#closed-section-color-coded {
+    display: flex;
+    color: blue;
+    font-family: sans-serif;
+}
+
+#open-section-color-coded {
+    display: flex;
+    color: green;
+    font-family: sans-serif;
+}
+
+/* View Course Styles */
+.view-courses-container,
+.enroll-courses-container,
+.drop-courses-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Add Class Styles */
+.proceed-container,
+.back-container,
+.enroll-container {
+    display: flex;
+    justify-content: end;
+    margin-right: 1.5rem;
+    margin-top: 3.5rem;
+}
+
+.proceedBtn,
+.backBtn,
+.enrollBtn, .summaryBtn {
+    background-color: #0c240b;
+    color: #f5fff9;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.75rem 2rem;  
+    border-radius: 5px;  
+    transition: transform 0.3s ease;  
+}
+
+.proceedBtn:hover,
+.backBtn:hover,
+.enrollBtn:hover, .summaryBtn:hover {
+    background-color: #627360;
+    font-weight: 600;
+    transform: scale(1.05);  
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .proceedBtn {
+        font-size: 0.9rem; 
+        padding: 0.6rem 1.5rem; 
+        width: 100%; 
+        margin-top: 2rem; 
+        margin-right: 0;  
+    }
+}
+
+@media (max-width: 480px) {
+    .proceedBtn {
+        font-size: 0.8rem;  
+        padding: 0.5rem 1rem;  
+        width: 100%;  
+        margin-top: 1.5rem;  
+    }
+}
+
+@media (max-width: 360px) {
+    .proceedBtn {
+        font-size: 0.75rem;  
+        padding: 0.4rem 0.8rem; 
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+/* Drop Course Styles */
+.dropBtn {
+    background-color: rgb(162, 55, 55);
+    color: white;
+    font-weight: 600;
+    font-family: sans-serif;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    margin: 4px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;  
+}
+
+.dropBtn:hover {
+    background-color: #e02717;
+    cursor: pointer;
+    transform: scale(1.05);  
+}

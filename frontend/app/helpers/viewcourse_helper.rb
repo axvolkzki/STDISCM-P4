@@ -1,0 +1,2 @@
+module ViewcourseHelper
+end

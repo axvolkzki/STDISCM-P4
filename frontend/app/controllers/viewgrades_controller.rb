@@ -1,0 +1,2 @@
+class ViewgradesController < ApplicationController
+end

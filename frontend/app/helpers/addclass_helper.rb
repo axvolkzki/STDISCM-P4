@@ -1,0 +1,2 @@
+module AddclassHelper
+end

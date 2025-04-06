@@ -1,0 +1,2 @@
+class DropcourseController < ApplicationController
+end

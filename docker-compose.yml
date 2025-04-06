@@ -1,22 +1,59 @@
-version: '3.8'
-
 services:
-  authentication:
+  # Shared PostgreSQL Database
+  db:
+    image: postgres:15
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Authentication Service
+  auth_service:
     build: ./backend/authentication
+    volumes:
+      - ./backend/authentication:/app
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      RAILS_ENV: development
     ports:
       - "3001:3000"
-  
-  courses:
-    build: ./backend/courses
-    ports:
-      - "3002:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
 
-  enrollment:
-    build: ./backend/enrollment
+  # Frontend
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/rails
     ports:
-      - "3003:3000"
+      - "3000:3000"
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+      BUNDLE_PATH: /usr/local/bundle
+      AUTH_SERVICE_URL: http://auth_service:3000  # For frontend to call auth service
+    depends_on:
+      - auth_service
+    networks:
+      - app-network
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
 
-  grades:
-    build: ./backend/grades
-    ports:
-      - "3004:3000"
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
