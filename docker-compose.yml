@@ -1,6 +1,6 @@
 services:
   # Shared PostgreSQL Database
-  postgres_db:
+  db:
     image: postgres:15
     env_file: .env
     volumes:
@@ -27,7 +27,7 @@ services:
     ports:
       - "3001:3000"
     depends_on:
-      postgres_db:
+      db:
         condition: service_healthy
     networks:
       - app-network
@@ -44,7 +44,7 @@ services:
     environment:
       RAILS_ENV: development
       BUNDLE_PATH: /usr/local/bundle
-      AUTH_SERVICE_URL: http://auth:3000  # For frontend to call auth service
+      AUTH_SERVICE_URL: http://auth_service:3000  # For frontend to call auth service
     depends_on:
       - auth_service
     networks:
