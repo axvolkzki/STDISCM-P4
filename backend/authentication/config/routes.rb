@@ -3,4 +3,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  namespace :api do
+    namespace :v1 do
+      # resources :users, only: [:create]
+      # resources :sessions, only: [:create, :destroy]
+      # resources :passwords, only: [:create, :update]
+      post 'login', to: 'sessions#create'
+      delete 'logout', to: 'sessions#destroy'
+      get 'current_user', to: 'sessions#show'
+      get 'dashboard', to: 'dashboard#index' 
+    end
+  end
 end
