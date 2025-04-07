@@ -19,11 +19,30 @@ module Api
   
           render json: { token: token }, status: :created
         end
+
+        def validate 
+          raise AuthenticationError unless decoded_token
+
+          render json: {
+            valid: true,
+            user_id: decoded_token['user_id'],
+            role: decoded_token['role']
+          }, status: :ok
+        end
   
         private
   
         def user
           @user ||= User.find_by(id: params.require(:id))
+        end
+
+        def decoded_token
+           token = request.headers['Authorization']&.split(' ')&.last
+           return unless token
+            
+           JwtService.decode(token) # Reuse your JWT service
+        rescue JWT::DecodeError
+           nil
         end
   
         def parameter_missing(e)
@@ -34,16 +53,6 @@ module Api
           render json: { error: 'Invalid credentials' }, status: :unauthorized
         end
 
-        def validate
-          token = request.headers['Authorization']&.split(' ')&.last
-          raise AuthenticationError unless decoded_token
-
-          render json: {
-            valid: true,
-            user_id: decoded_token.first['user_id'],
-            role: decoded_token.first['role']
-          }, status: :ok
-        end
       end
     end
   end
