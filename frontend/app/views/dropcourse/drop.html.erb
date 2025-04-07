@@ -1,3 +1,5 @@
+<%= javascript_include_tag('dropCourse.js')%>
+
 <%= render 'layouts/navbar' %>
 
 <div class="courses-title-container">
@@ -26,7 +28,7 @@
             <td> TF </td>
             <td> 1100-1230 </td>
             <td> LS332 </td>
-            <td> <button class="dropBtn"> DROP </button> </td>
+            <td class="drop-cell" data-class-id=1> <button class="dropBtn" data-class-id="1"> DROP </button> </td>
         </tr>
 
         <tr>
@@ -37,7 +39,20 @@
             <td> TF </td>
             <td> 1245-1415 </td>
             <td> LS331 </td>
-            <td> <button class="dropBtn"> DROP </button> </td>
+            <td class="drop-cell" data-class-id=2> <button class="dropBtn" data-class-id="2"> DROP </button> </td>
         </tr>
+
+        <%#  %>
     </table>
+</div>
+
+<div class="drop-modal" id="dropModal">
+    <div class="modal">
+      <h3>Are you sure to drop this course?</h3>
+      <div class="modal-buttons">
+        <button id="confirm-btn-drop" >Confirm</button>
+        <button id="cancel-btn-drop" >Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
