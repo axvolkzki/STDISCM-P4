@@ -1,18 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-
   namespace :api do
     namespace :v1 do
-      # resources :users, only: [:create]
-      # resources :sessions, only: [:create, :destroy]
-      # resources :passwords, only: [:create, :update]
-      post 'login', to: 'sessions#create'
-      delete 'logout', to: 'sessions#destroy'
-      get 'current_user', to: 'sessions#show'
-      get 'dashboard', to: 'dashboard#index' 
+      post 'login', to: 'authentication#login'
+      post 'validate', to: 'authentication#validate' # Should be POST
     end
   end
 end
