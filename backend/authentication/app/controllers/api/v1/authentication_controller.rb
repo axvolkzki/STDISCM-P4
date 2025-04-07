@@ -10,7 +10,12 @@ module Api
           raise AuthenticationError unless user
           raise AuthenticationError unless user.authenticate(params.require(:password))
   
-          token = JwtService.call(user.id, user.role)
+          payload = { 
+            user_id: user.id,
+            role: user.role # Uses the method we just defined
+          }
+          
+          token = JwtService.encode(payload)
   
           render json: { token: token }, status: :created
         end
