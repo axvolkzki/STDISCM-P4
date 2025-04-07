@@ -5,114 +5,95 @@
     <h3>Add Grades </h3>
 </div>
 
-<form id="filterForm" action="/filter" method="GET">
-<div class="search-container">
-    <div class="course-dropdown">
-        <div class="container">
-            <label for="course-category">select course</label>
-            <select id="course-category">
-                <option value="all-courses">ALL</option>
-                <option value="lcasean">LCASEAN</option>
-                <option value="personal">GERIZAL</option>
-            </select>
+
+<% if !!@err then %>
+    <h2>Error: Feature currently down or unavailable.</h2>
+    <%= @err %>
+<% elsif @response.status == 401 %>
+    <%= @data["message"] %>
+<% else %>
+    <form id="filterForm" action="/filter" method="GET">
+    <div class="search-container">
+        <div class="course-dropdown">
+            <div class="container">
+                <label for="course-category">select course</label>
+                <select id="course-category">
+                    <option value="all-courses">ALL</option>
+                    <option value="lcasean">LCASEAN</option>
+                    <option value="personal">GERIZAL</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-dropdown">
+            <div class="container">
+                <label for="section-category">select course</label>
+                <select id="section-category">
+                    <option value="all-sections">ALL</option>
+                    <option value="section1">Y14</option>
+                    <option value="section2">Z14</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <div class="container">
+            <br>
+                <input type="text" id="searchBox" placeholder="search student name">
+            </div>
+        </div>
+
+        <div class="filter-button">
+            <br>
+            <button type="submit" id="filterButton">Filter</button>
         </div>
     </div>
+    </form>
 
-    <div class="section-dropdown">
-        <div class="container">
-            <label for="section-category">select course</label>
-            <select id="section-category">
-                <option value="all-sections">ALL</option>
-                <option value="section1">Y14</option>
-                <option value="section2">Z14</option>
-            </select>
-        </div>
-    </div>
+    <div class="drop-courses-container">
 
-    <div class="search-box">
-        <div class="container">
-        <br>
-            <input type="text" id="searchBox" placeholder="search student name">
-        </div>
-    </div>
-
-    <div class="filter-button">
-        <br>
-        <button type="submit" id="filterButton">Filter</button>
-    </div>
-</div>
-</form>
-
-<div class="drop-courses-container">
-    <table>
-        <tr>
-            <th> Student </th>
-            <th> ID Number </th>
-            <th> Course </th>
-            <th> Section </th>
-            <th> Grade </th>
-            <th> </th>
-        </tr>
-
-        <!-- SAMPLE DATA ONW WHAT ITS SUPPOSED TO LOOK LIKE -->
-       <tr>
-            <td> Juan Santos </td>
-            <td> 12176767 </td>
-            <td> GERIZAL </td>
-            <td> Y13 </td>
-            <td class="grade-cell" data-student-id=1> 4.0 </td>
-            <td><button class="addGradeBtn"  data-student-id="1" data-student-name="Juan Santos">edit</button></td>
-        </tr>
-        <tr>
-            <td> Jose Santos </td>
-            <td> 12176766 </td>
-            <td> GERIZAL </td>
-            <td> Y13 </td>
-            <td class="grade-cell" data-student-id=2> - </td>
-            <td><button class="addGradeBtn" data-student-id="2" data-student-name="Jose Santos">add</button></td>
-        </tr>
-        
-        <%# uncomment to use, remove the #s %>
-        <%# @students.each do |student| %>
+        <table>
             <tr>
-            <td><%#= student.name %></td>
-            <td><%#= student.id_number %></td>
-            <td><%#= student.course %></td>
-            <td><%#= student.section %></td>
-            <td class="grade-cell" data-student-id="<%#= student.id_number %>">
-                <%#= student.grade.present? ? student.grade : '—' %>
-            </td>
-            <td>
-                <button 
-                class="addGradeBtn" 
-                data-student-id="<%#= student.id_number %>" 
-                data-student-name="<%#= student.name %>">
-                <%#= student.grade.present? ? 'Edit' : 'Add' %>
-                </button>
-            </td>
+                <th> Student </th>
+                <th> ID Number </th>
+                <th> Course </th>
+                <th> Section </th>
+                <th> Grade </th>
+                <th> </th>
             </tr>
-      <%# end %>
-    </table>
 
-<div class="addGrade-modal" id="gradeModal">
-    <div class="modal">
-      <h3>Select Grade</h3>
-      <select id="gradeSelect">
-        <option value="1.0">1.0</option>
-        <option value="1.5">1.5</option>
-        <option value="2.0">2.0</option>
-        <option value="2.5">2.5</option>
-        <option value="3.0">3.0</option>
-        <option value="3.5">3.5</option>
-        <option value="4.0">4.0</option>
-        <option value="0.0">0.0</option>
-      </select>
+            <% @data.each do |enrolled_course| %>
 
-      <div class="modal-buttons">
-        <button id="confirm-btn" >Confirm</button>
-        <button id="cancel-btn" >Cancel</button>
-      </div>
+            <tr>
+                <td> <%= enrolled_course["first_name"] %> <%= enrolled_course["middle_name"]%> <%= enrolled_course["last_name"] %> </td>
+                <td> <%= enrolled_course["users_id"] %> </td>
+                <td> <%= enrolled_course["code"] %> </td>
+                <td> <%= enrolled_course["section"] %> </td>
+                <td class="grade-cell" data-id=<%=enrolled_course["id"]%>> <%= enrolled_course["grade"] != nil ? enrolled_course["grade"] : "-" %> </td>
+                <td><button class="addGradeBtn" data-id=<%=enrolled_course["id"]%> data-grade=<%=enrolled_course["grade"]%>>edit</button></td>
+            </tr>
+            <% end %>
+
+    <div class="addGrade-modal" id="gradeModal">
+        <div class="modal">
+        <h3>Select Grade</h3>
+        <select id="gradeSelect">
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+            <option value="0.0">0.0</option>
+        </select>
+
+        <div class="modal-buttons">
+            <button id="cancel-btn" >Cancel</button>
+            <button id="confirm-btn" request-target= "<%=ENV['UPLOAD_GRADES_IP']%>">Confirm</button>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 
+<% end %>

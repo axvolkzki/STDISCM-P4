@@ -62,7 +62,6 @@ EnrolledCourse.create!({
 })
 
 EnrolledCourse.create!({
-  grade: 3.0,
   users_id: alice.id,
   courses_id: ths_s11.id
 })
