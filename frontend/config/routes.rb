@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     get "/dropcourse", to:"dropcourse#drop"
   
     # GET /viewgrades
+    get "/student_viewgrades", to:"viewgrades#student_grades"
   
     # GET /facultydashboard
     get "/facultydashboard", to: "facultydashboard#dashboard"
   
     # GET /addgrades
+    get "/addgrades", to: "addgrades#addgrades"
 end
