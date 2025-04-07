@@ -1,20 +1,16 @@
 module Api::V1
     class SessionsController < ApplicationController
-      skip_before_action :verify_authenticity_token             # Skip CSRF token verification for API requests
-      skip_before_action :authenticate_request, only: [:create] # Skip authentication for the create action
+      skip_before_action :verify_authenticity_token
       
       def create
         user = User.find_by(id: params[:id])
-
         if user&.authenticate(params[:password])
-          token = JwtService.encode(user_id: user.id)           # Store the token in the session
-
+          session[:user_id] = user.id
           render json: { 
             logged_in: true,
-            token: token, # send jwt token instead of session id
             user: user.as_json(except: [:password_digest, :created_at, :updated_at]),
-            message: 'Login successful'
-          }, status: :ok
+            redirect_to: dashboard_path # Add this line
+          }
         else
           render json: { 
             status: 401,
@@ -24,14 +20,15 @@ module Api::V1
       end
   
       def destroy
+        reset_session
         render json: { status: 200, logged_out: true }
       end
   
       def show
-        if @current_user # If the user is logged in, return their information.
+        if current_user
           render json: {
             logged_in: true,
-            user: @current_user.as_json(except: [:password_digest, :created_at, :updated_at])
+            user: current_user.as_json(except: [:password_digest, :created_at, :updated_at])
           }
         else
           render json: {

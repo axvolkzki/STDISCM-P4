@@ -1,23 +1,27 @@
 class JwtService
-    # Use HMAC SHA256 algorithm for signing the JWT
-    ALGORITHM = 'HS256'.freeze
-    SECRET_KEY = Rails.application.credentials.secret_key_base || ENV['JWT_SECRET_KEY']
+  ALGORITHM = 'HS256'
+  SECRET_KEY = ENV.fetch('JWT_SECRET_KEY') # Require this to be set
+  EXPIRATION_TIME = 24.hours.to_i
 
-    # Expiration time for the JWT (in seconds)
-    EXPIRATION_TIME = 24.hours.to_i
+  def self.encode(payload) # Better name than 'call'
+    payload = payload.dup
+    payload[:exp] = Time.now.to_i + EXPIRATION_TIME
+    JWT.encode(payload, SECRET_KEY, ALGORITHM)
+  rescue JWT::EncodeError => e
+    Rails.logger.error "JWT Encode Error: #{e.message}"
+    nil
+  end
 
-    # Method to encode the payload into a JWT
-    def self.encode(payload)
-      payload[:exp] = Time.now.to_i + EXPIRATION_TIME
-      JWT.encode(payload, SECRET_KEY, ALGORITHM)
-    end
-
-    # Method to decode the JWT and return the payload
-    def self.decode(token)
-      decoded_token = JWT.decode(token, SECRET_KEY, true, { algorithm: ALGORITHM })
-      decoded_token[0]
-    rescue JWT::DecodeError => e
-      Rails.logger.error "JWT Decode Error: #{e.message}"
-      nil
-    end
+  def self.decode(token)
+    JWT.decode(token, SECRET_KEY, true, { 
+      algorithm: ALGORITHM,
+      verify_expiration: true 
+    }).first
+  rescue JWT::ExpiredSignature
+    Rails.logger.error "JWT Expired"
+    nil
+  rescue JWT::DecodeError => e
+    Rails.logger.error "JWT Decode Error: #{e.message}"
+    nil
+  end
 end
