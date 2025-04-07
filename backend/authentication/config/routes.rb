@@ -9,10 +9,8 @@ Rails.application.routes.draw do
       # resources :users, only: [:create]
       # resources :sessions, only: [:create, :destroy]
       # resources :passwords, only: [:create, :update]
-      post 'login', to: 'sessions#create'
-      delete 'logout', to: 'sessions#destroy'
-      get 'current_user', to: 'sessions#show'
-      get 'dashboard', to: 'dashboard#index' 
+      post 'login', to: 'authentication#login'
+      delete 'validate', to: 'authentication#validate' 
     end
   end
 end
