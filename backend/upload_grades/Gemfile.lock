@@ -122,10 +122,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.7-x64-mingw-ucrt)
+    nokogiri (1.18.7-x86_64-linux-gnu)
       racc (~> 1.4)
     pg (1.5.9)
-    pg (1.5.9-x64-mingw-ucrt)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -185,8 +184,6 @@ GEM
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2025.2)
-      tzinfo (>= 1.0.0)
     uri (1.0.3)
     useragent (0.16.11)
     websocket-driver (0.7.7)
@@ -196,7 +193,7 @@ GEM
     zeitwerk (2.7.2)
 
 PLATFORMS
-  x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
@@ -210,4 +207,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   2.6.6
+   2.4.10
