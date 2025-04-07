@@ -1,6 +1,8 @@
 class User < ApplicationRecord
     self.primary_key = 'id'
     
+    has_many :course, through: :enrolled_course
+
     # Add password encryption
     has_secure_password
     
