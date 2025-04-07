@@ -1,9 +1,11 @@
+<%= javascript_include_tag('getStudentDashboard.js')%>
+
 <%= render 'layouts/navbar' %>
 
 <div class="student-info-container">
     <div class="student-info">
-        <h3> Student Name: </h3>
-        <h3> ID Number: </h3>
+        <h3> Student Name: <span id="student-name"></span></h3>
+        <h3> ID Number: <span id="student-id"></span></h3>
     </div>
 </div>
 
