@@ -4,26 +4,30 @@
     <h3> View Grades </h3>
 </div>
 
-<div class="academic-year-container">
-    <h2> A.Y. : 2024-2025</h2>
-</div>
+<% if !!@err then %>
+    <h2>Error: Feature currently down or unavailable.</h2>
+    <%= @err %>
+<% elsif @response.status == 401 %>
+    <%= @data["message"] %>
+<% else %>
+    <div class="academic-year-container">
+        <h2> A.Y. : 2024-2025</h2>
+    </div>
 
-<div class="enroll-courses-container">
-    <table>
-        <tr>
-            <th> Course </th>
-            <th> Grade </th>
-        </tr>
-
-        <!-- SAMPLE DATA ONW WHAT ITS SUPPOSED TO LOOK LIKE -->
-        <tr>
-            <td> GERIZAL </td>
-            <td> 4.0 </td>
-        </tr>
-
-        <tr>
-            <td> LCASEAN </td>
-            <td> 3.5 </td>
-        </tr>
-    </table>
-</div>
+    <div class="enroll-courses-container">
+        <table>
+            <tr>
+                <th> Course </th>
+                <th> Section </th>
+                <th> Grade </th>
+            </tr>
+            <% @data.each do |course| %>
+            <tr>
+                <td> <%= course["code"] %> </td>
+                <td> <%= course["section"] %> </td>
+                <td> <%= course["grade"] %> </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+<% end %>
