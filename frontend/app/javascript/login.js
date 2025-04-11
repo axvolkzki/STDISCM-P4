@@ -36,8 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Store the token in localStorage
                 localStorage.setItem('jwt_token', data.token);
                 localStorage.setItem('user_role', data.user.role);
+
+                // store the token in cookies
+                document.cookie = `jwt_token=${data.token}`
+                document.cookie = `user_role=${data.user.role}`
+
                 console.log('User role:', data.user.role);
                 console.log('Full response data:', data);
+                
                 if (data.user.role === 'student') {
                     window.location.href = '/studentdashboard';
                 } else if (data.user.role === 'faculty') {

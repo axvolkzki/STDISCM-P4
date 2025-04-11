@@ -21,15 +21,16 @@ class GradesController < ApplicationController
 
   def current_user 
     if decoded_token
-        user_id = decoded_token[0]['user_id']
+      
+        user_id = decoded_token['user_id']
         @user = User.find_by(id: user_id)
     end
   end
 
   def authorized
     unless !!current_user
-      @user = User.first
-      # render json: { message: 'Please log in' }, status: :unauthorized    
+      # @user = User.first
+      render json: { message: 'Please log in' }, status: :unauthorized    
     end
   end
 end
