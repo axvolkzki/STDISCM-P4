@@ -33,3 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchStudentData();
 });
+
+Document.getElementById("student-viewgrades").addEventListener("click", function() {
+    
+})
