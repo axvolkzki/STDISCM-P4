@@ -9,16 +9,18 @@ module Api
         def login
           raise AuthenticationError unless user
           raise AuthenticationError unless user.authenticate(params.require(:password))
-  
-          payload = { 
+        
+          now = Time.current.to_i
+          payload = {
             user_id: user.id,
             role: user.is_professor ? 'professor' : 'student',
-            exp: 1.hours.from_now.to_i
+            iat: now,
+            exp: 1.hour.from_now.to_i
           }
-          
-          token = JwtService.encode(payload)
-  
-          render json: { 
+        
+          token = JwtService.encode(payload) # This uses 15 min expiration now
+        
+          render json: {
             token: token,
             user: {
               id: user.id,
@@ -27,6 +29,26 @@ module Api
               role: user.role
             }
           }, status: :created
+        end
+
+        def logout
+          raise AuthenticationError unless decoded_token && current_user
+        
+          current_user.update(last_logout_at: Time.current)
+        
+          render json: { message: 'Logged out successfully' }, status: :ok
+        end
+
+        # Check if the token is valid and not expired for idle time
+        def refresh
+          raise AuthenticationError unless decoded_token
+        
+          new_token = JwtService.encode({
+            user_id: decoded_token['user_id'],
+            role: decoded_token['role']
+          })
+        
+          render json: { token: new_token }, status: :ok
         end
 
         def validate 
@@ -46,12 +68,22 @@ module Api
         end
 
         def decoded_token
-           token = request.headers['Authorization']&.split(' ')&.last
-           return unless token
-            
-           JwtService.decode(token)
+          token = request.headers['Authorization']&.split(' ')&.last
+          return unless token
+        
+          decoded = JwtService.decode(token)
+          return nil unless decoded
+        
+          # Invalidate token if user logged out after it was issued
+          user = User.find_by(id: decoded['user_id'])
+          if user&.last_logout_at.present? && decoded['iat'] < user.last_logout_at.to_i
+            Rails.logger.info("Token issued at #{decoded['iat']} is before last logout at #{user.last_logout_at}")
+            return nil
+          end
+        
+          decoded
         rescue JWT::DecodeError, JWT::ExpiredSignature
-           nil
+          nil
         end
   
         def parameter_missing(e)
