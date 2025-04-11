@@ -1,2 +1,3 @@
 class StudentdashboardController < ApplicationController
+  
 end

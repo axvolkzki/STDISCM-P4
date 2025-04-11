@@ -8,7 +8,7 @@ class GradesController < ApplicationController
       .select("enrolled_courses.*, users.*, courses.*")
       .order("enrolled_courses.id DESC")
 
-    render json: @enrolled_courses
+    render json: ENV
   end
 
   def upload
@@ -37,8 +37,8 @@ class GradesController < ApplicationController
 
   def authorized
     unless !!current_user
-      @user = User.first
-      # render json: { message: 'Please log in' }, status: :unauthorized    
+      # @user = User.first
+      render json: { message: 'Please log in' }, status: :unauthorized    
     end
   end
 end
