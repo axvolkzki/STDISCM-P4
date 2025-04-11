@@ -109,6 +109,24 @@ services:
       - app-network
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
 
+  # enroll_courses
+  enroll_courses:
+    build: ./backend/enroll_courses
+    volumes:
+      - ./backend/enroll_courses:/app
+    ports:
+      - "3003:3000"
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      RAILS_ENV: development
+      AUTH_SERVICE_URL: http://auth_service:3000  # For enroll_courses to call auth service
+    depends_on:
+      - auth_service
+    networks:
+      - app-network
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+
 networks:
   app-network:
     driver: bridge
