@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 successMessage.textContent = 'Login successful.';
-                successDiv.classList.add('hidden');  // show the success alert
+                successDiv.classList.remove('hidden');  // show the success alert
                 
                 // success message visible for 4s
                 setTimeout(() => {
