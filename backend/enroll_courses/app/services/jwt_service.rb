@@ -1,12 +1,11 @@
 class JwtService
   ALGORITHM = 'HS256'
-  SECRET_KEY = ENV.fetch('JWT_SECRET_KEY')
-  DEFAULT_EXPIRATION = 15.minutes.to_i
+  SECRET_KEY = ENV.fetch('JWT_SECRET_KEY') # Require this to be set
+  EXPIRATION_TIME = 24.hours.to_i
 
-  def self.encode(payload, exp = DEFAULT_EXPIRATION)
+  def self.encode(payload) # Better name than 'call'
     payload = payload.dup
-    payload[:iat] = Time.now.to_i
-    payload[:exp] = Time.now.to_i + exp
+    payload[:exp] = Time.now.to_i + EXPIRATION_TIME
     JWT.encode(payload, SECRET_KEY, ALGORITHM)
   rescue JWT::EncodeError => e
     Rails.logger.error "JWT Encode Error: #{e.message}"
@@ -14,9 +13,9 @@ class JwtService
   end
 
   def self.decode(token)
-    JWT.decode(token, SECRET_KEY, true, {
+    JWT.decode(token, SECRET_KEY, true, { 
       algorithm: ALGORITHM,
-      verify_expiration: true
+      verify_expiration: true 
     }).first
   rescue JWT::ExpiredSignature
     Rails.logger.error "JWT Expired"
