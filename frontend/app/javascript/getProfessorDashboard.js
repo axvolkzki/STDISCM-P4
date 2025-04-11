@@ -31,6 +31,5 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('faculty-id').textContent = data.professor.professor_id || 'N/A';
         }
     }
-
     fetchProfessorData();
 });

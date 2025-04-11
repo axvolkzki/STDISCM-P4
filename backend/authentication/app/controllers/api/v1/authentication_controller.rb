@@ -59,8 +59,8 @@ module Api
         end
   
         def handle_unauthenticated
-          render json: { error: 'Invalid credentials' }, status: :unauthorized
-        end
+          render json: { error: 'Invalid ID Number or Password' }, status: :unauthorized
+        end        
       end
     end
   end

@@ -1,24 +1,27 @@
-# app/services/jwt_service.rb
-require 'jwt'
-
 class JwtService
-  SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
   ALGORITHM = 'HS256'
+  SECRET_KEY = ENV.fetch('JWT_SECRET_KEY') # Require this to be set
+  EXPIRATION_TIME = 24.hours.to_i
 
-  def self.encode(payload, exp = 24.hours.from_now)
-    payload[:exp] = exp.to_i
+  def self.encode(payload) # Better name than 'call'
+    payload = payload.dup
+    payload[:exp] = Time.now.to_i + EXPIRATION_TIME
     JWT.encode(payload, SECRET_KEY, ALGORITHM)
-  end
-
-  def self.decode(token)
-    decoded = JWT.decode(token, SECRET_KEY, true, { algorithm: ALGORITHM })[0]
-    HashWithIndifferentAccess.new(decoded)
-  rescue JWT::DecodeError => e
+  rescue JWT::EncodeError => e
+    Rails.logger.error "JWT Encode Error: #{e.message}"
     nil
   end
 
-  # For service-to-service communication
-  def self.service_token
-    encode({ service: 'view_courses', timestamp: Time.now.to_i })
+  def self.decode(token)
+    JWT.decode(token, SECRET_KEY, true, { 
+      algorithm: ALGORITHM,
+      verify_expiration: true 
+    }).first
+  rescue JWT::ExpiredSignature
+    Rails.logger.error "JWT Expired"
+    nil
+  rescue JWT::DecodeError => e
+    Rails.logger.error "JWT Decode Error: #{e.message}"
+    nil
   end
 end

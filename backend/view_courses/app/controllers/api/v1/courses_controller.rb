@@ -2,8 +2,7 @@
 module Api
   module V1
     class CoursesController < ApplicationController
-      before_action :authenticate_request
-      before_action :set_course, only: [:show]
+      before_action :authorized
 
       # GET /api/v1/courses
       def index
@@ -11,30 +10,26 @@ module Api
         render json: @courses
       end
 
-      # GET /api/v1/courses/:id
-      def show
-        render json: @course
+      def decoded_token
+          token = request.headers['Authorization']&.split(' ')&.last
+          return unless token
+
+          JwtService.decode(token) # Reuse your JWT service
+      rescue JWT::DecodeError
+          nil
       end
 
-      private
+      def current_user
+          if decoded_token
+              user_id = decoded_token['user_id']
+              @user = User.find_by(id: user_id)
+          end
+      end
 
-      def authenticate_request
-        auth_client = AuthServiceClient.new
-        header = request.headers['Authorization']
-        token = header.split(' ').last if header
-        
-        begin
-          response = auth_client.validate_token(token)
-          @current_user = response[:user] if response[:valid]
-        rescue => e
-          render json: { error: 'Not Authorized' }, status: :unauthorized
+      def authorized
+        unless !!current_user
+          render json: { message: 'Please log in' }, status: :unauthorized    
         end
-      end
-
-      def set_course
-        @course = Course.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: "Course not found" }, status: :not_found
       end
     end
   end

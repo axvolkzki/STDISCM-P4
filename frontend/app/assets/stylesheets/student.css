@@ -13,6 +13,13 @@
     font-size: 1.25rem;
 }
 
+.student-name, .student-id {
+    color:  #567455;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
 /* Dashboard Styles */
 * {
     box-sizing: border-box;

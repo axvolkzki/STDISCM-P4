@@ -1,4 +1,3 @@
-<%= javascript_include_tag('login.js')%>
 <div class="flex h-screen">
   <!-- Right Pane -->
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center" id="login-container">
@@ -6,22 +5,40 @@
       <h1 class="text-3xl font-semibold mb-6 text-center login-text">Login to your account</h1>
       <div class="mt-4 flex flex-col lg:flex-row items-center justify-between"> </div>
       <form method="POST" class="space-y-4" id="login-form">
+        <!-- ID Nummber -->
         <div>
           <label for="idNumber" class="block text-sm font-medium login-text">ID Number</label>
-          <input type="text" id="idNumber" name="idNumber" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+          <input type="text" id="idNumber" name="idNumber" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 shadow-sm">
         </div>
+
+        <!-- Password -->
         <div>
           <label for="password" class="block text-sm font-medium login-text">Password</label>
-          <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+          <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 shadow-sm">
         </div>
-        <span class="error-message"> *Incorrect ID Number or Password </span>
+
+        <!-- Error Message for ID/Password -->
+        <span id="login-error"> </span>
+
+        <!-- Submit Button -->
         <div>
           <button type="submit" class="w-full text-white p-2 rounded-md focus:outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 loginBtn">Login</button>
         </div>
       </form>
+
+      <!-- Success Alert Container (hidden) -->
+      <div id="login-success" class="hidden bg-green-200 px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+        <svg viewBox="0 0 24 24" class="text-green-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
+          <path fill="currentColor"
+            d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z" />
+        </svg>
+        <span id="login-success-message" class="text-green-800">Login successful.</span>
+      </div>
     </div>
   </div>
   <div class="color-panel lg:w-1/2">
     <%= image_tag("logo.png", :alt => "logo", class: "logo-img") %>
   </div>
 </div>
+
+<%= javascript_include_tag('login.js')%>
