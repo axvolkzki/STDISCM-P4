@@ -37,8 +37,11 @@ class GradesController < ApplicationController
 
   def authorized
     unless !!current_user
-      # @user = User.first
       render json: { message: 'Please log in' }, status: :unauthorized    
+    end
+
+    if !@user["is_professor"]
+      render json: { message: 'Unauthorized: Only professors can access this feature'}, status: :unauthorized
     end
   end
 end
