@@ -13,13 +13,13 @@
 }
 
 
-.logout-btn {
+.logout-btn-container {
     display: flex;
     justify-content: flex-end; 
     align-items: center; 
 }
 
-.logout-btn-style {
+#logout-btn {
     background-color: #0c240b;
     color: #f5fff9;
     font-family: sans-serif;
@@ -33,6 +33,6 @@
     transition: background-color 0.3s ease;
 }
 
-.logout-btn-style:hover {
+#logout-btn:hover {
     background-color: #355a3a;
 }
