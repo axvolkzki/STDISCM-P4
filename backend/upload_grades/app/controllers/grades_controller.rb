@@ -8,7 +8,7 @@ class GradesController < ApplicationController
       .select("enrolled_courses.*, users.*, courses.*")
       .order("enrolled_courses.id DESC")
 
-    render json: ENV
+    render json: @enrolled_courses
   end
 
   def upload
@@ -30,7 +30,7 @@ class GradesController < ApplicationController
 
   def current_user 
     if decoded_token
-        user_id = decoded_token[0]['user_id']
+        user_id = decoded_token['user_id']
         @user = User.find_by(id: user_id)
     end
   end

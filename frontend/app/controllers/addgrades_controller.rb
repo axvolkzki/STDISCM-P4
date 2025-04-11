@@ -1,7 +1,8 @@
 class AddgradesController < ApplicationController
   def addgrades
     begin
-      @response = Faraday.get(ENV["UPLOAD_GRADES_IP"])
+      jwt_token = cookies["jwt_token"]
+      @response = Faraday.get(ENV["UPLOAD_GRADES_IP"], nil, {Authorization: "Bearer #{jwt_token}"})
 
       @data = JSON.parse(@response.body)
     rescue Faraday::ConnectionFailed => e
