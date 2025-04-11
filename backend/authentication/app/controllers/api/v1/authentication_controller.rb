@@ -12,12 +12,21 @@ module Api
   
           payload = { 
             user_id: user.id,
-            role: user.role # Uses the method we just defined
+            role: user.is_professor ? 'professor' : 'student',
+            exp: 1.hours.from_now.to_i
           }
           
           token = JwtService.encode(payload)
   
-          render json: { token: token }, status: :created
+          render json: { 
+            token: token,
+            user: {
+              id: user.id,
+              first_name: user.first_name,
+              last_name: user.last_name,
+              role: user.role
+            }
+          }, status: :created
         end
 
         def validate 
@@ -40,8 +49,8 @@ module Api
            token = request.headers['Authorization']&.split(' ')&.last
            return unless token
             
-           JwtService.decode(token) # Reuse your JWT service
-        rescue JWT::DecodeError
+           JwtService.decode(token)
+        rescue JWT::DecodeError, JWT::ExpiredSignature
            nil
         end
   
@@ -52,7 +61,6 @@ module Api
         def handle_unauthenticated
           render json: { error: 'Invalid credentials' }, status: :unauthorized
         end
-
       end
     end
   end
