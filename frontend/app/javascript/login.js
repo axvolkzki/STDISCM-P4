@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem('jwt_token', data.token);
                 localStorage.setItem('user_role', data.user.role);
 
+                // store the token in cookies
+                document.cookie = `jwt_token=${data.token}`
+                document.cookie = `user_role=${data.user.role}`
+
                 // Redirect based on the user role  
                 setTimeout(() => {
                     if (data.user.role === 'student') {
