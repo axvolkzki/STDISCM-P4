@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    self.table_name = 'users' # Set the table name to 'users'
     self.primary_key = 'id' # Keep since using admin-provided IDs
     
     has_many :courses, through: :enrolled_courses

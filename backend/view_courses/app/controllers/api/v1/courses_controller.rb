@@ -10,6 +10,17 @@ module Api
         render json: @courses
       end
 
+      # GET /api/v1/courses/search?code=STDISCM
+      def search
+        if params[:code].present?
+          code = params[:code].upcase.strip
+          courses = Course.where('UPPER(code) = ?', code)
+          render json: courses, status: :ok
+        else
+          render json: { error: "Missing 'code' query parameter" }, status: :bad_request
+        end
+      end
+
       def decoded_token
           token = request.headers['Authorization']&.split(' ')&.last
           return unless token

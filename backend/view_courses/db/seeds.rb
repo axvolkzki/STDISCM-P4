@@ -12,20 +12,56 @@ puts "Creating courses..."
 
 courses = [
   { 
-    id: '0000001',
+    class_number: 2526,
     code: 'GERIZAL',
     name: 'Life and Works of Rizal',
     maxStudents: 45,
     numStudents: 0,
     section: 'Z21',
+    faculty_id: 0,
+    days: 'WS',
+    time: '12:45 - 14:15',
+    room: 'G102',
+    remarks: 'None'
   },
   { 
-    id: '0000002',
+    class_number: 2527,
+    code: 'GERIZAL',
+    name: 'Life and Works of Rizal',
+    maxStudents: 45,
+    numStudents: 0,
+    section: 'Z22',
+    faculty_id: 0,
+    days: 'WS',
+    time: '14:30 - 16:00',
+    room: 'G101',
+    remarks: 'None'
+  },
+  { 
+    class_number: 4345,
     code: 'STDISCM',
     name: 'Distributed Computing',
     maxStudents: 45,
     numStudents: 0,
     section: 'S11',
+    faculty_id: 1,
+    days: 'TF',
+    time: '14:30 - 16:00',
+    room: 'G103',
+    remarks: 'None'
+  },
+  { 
+    class_number: 4346,
+    code: 'STDISCM',
+    name: 'Distributed Computing',
+    maxStudents: 45,
+    numStudents: 0,
+    section: 'S12',
+    faculty_id: 1,
+    days: 'TF',
+    time: '12:45 - 14:15',
+    room: 'G103',
+    remarks: 'None'
   }
 ]
 

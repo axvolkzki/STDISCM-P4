@@ -5,63 +5,30 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-alice = User.create!({
-  id: 12100001,
-  first_name: "Alice",
-  last_name: "Kingsleigh",
-  middle_name: "W.",
-  password: "password123",
-  password_confirmation: "password123",
-  is_professor: false
-})
+puts "Creating users..."
 
-sheldon = User.create!(
-  id: 12100009,
-  first_name: "Sheldon",
-  last_name: "Cooper",
-  middle_name: "L.",
-  password: "securepass456",
-  password_confirmation: "securepass456",
-  is_professor: true
-)
-
-discm_s11 = Course.create!(
+users = [
   {
-    code: "STDISCM",
-    name: "Distributed Computing",
-    maxStudents: 45,
-    numStudents: 0,
-    section: "S11"
-  }
-)
-
-ths_s11 = Course.create!(
+    id: 12100001,
+    first_name: "Alice",
+    last_name: "Kingsleigh",
+    middle_name: "W.",
+    password: "password123",
+    password_confirmation: "password123",
+    is_professor: false
+  },
   {
-    code: "THS-ST2",
-    name: "Thesis in Software Technology 2",
-    maxStudents: 40,
-    numStudents: 0,
-    section: "S11"
+    id: 12100009,
+    first_name: "Sheldon",
+    last_name: "Cooper",
+    middle_name: "L.",
+    password: "securepass456",
+    password_confirmation: "securepass456",
+    is_professor: true
   }
-)
+]
 
-discm_s12 = Course.create!(
-  {
-    code: "STDISCM",
-    name: "Distributed Computing",
-    maxStudents: 45,
-    numStudents: 0,
-    section: "S12"
-  }
-)
-
-EnrolledCourse.create!({
-  grade: 3.5,
-  users_id: alice.id,
-  courses_id: discm_s11.id
-})
-
-EnrolledCourse.create!({
-  users_id: alice.id,
-  courses_id: ths_s11.id
-})
+users.each do |user|
+  User.create!(user)
+  puts "Created user: #{user[:first_name]} #{user[:last_name]}"
+end
