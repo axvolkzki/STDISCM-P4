@@ -11,22 +11,20 @@
 puts "Creating courses..."
 
 courses = [
-  { 
-    id: '0000001',
+  {
     code: 'GERIZAL',
     name: 'Life and Works of Rizal',
     maxStudents: 45,
     numStudents: 0,
     section: 'Z21',
   },
-  { 
-    id: '0000002',
+  {
     code: 'STDISCM',
     name: 'Distributed Computing',
     maxStudents: 45,
     numStudents: 0,
     section: 'S11',
-  }
+  },
 ]
 
 courses.each do |course_attrs|

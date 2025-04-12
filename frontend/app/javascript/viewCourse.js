@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data.forEach((course) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
+                    <td>${course.id}</td>
                     <td>${course.code}</td>
                     <td>${course.name}</td>
                     <td>${course.maxStudents}</td>

@@ -25,43 +25,43 @@ sheldon = User.create!(
   is_professor: true
 )
 
-discm_s11 = Course.create!(
-  {
-    code: "STDISCM",
-    name: "Distributed Computing",
-    maxStudents: 45,
-    numStudents: 0,
-    section: "S11"
-  }
-)
+# discm_s11 = Course.create!(
+#   {
+#     code: "STDISCM",
+#     name: "Distributed Computing",
+#     maxStudents: 45,
+#     numStudents: 0,
+#     section: "S11"
+#   }
+# )
 
-ths_s11 = Course.create!(
-  {
-    code: "THS-ST2",
-    name: "Thesis in Software Technology 2",
-    maxStudents: 40,
-    numStudents: 0,
-    section: "S11"
-  }
-)
+# ths_s11 = Course.create!(
+#   {
+#     code: "THS-ST2",
+#     name: "Thesis in Software Technology 2",
+#     maxStudents: 40,
+#     numStudents: 0,
+#     section: "S11"
+#   }
+# )
 
-discm_s12 = Course.create!(
-  {
-    code: "STDISCM",
-    name: "Distributed Computing",
-    maxStudents: 45,
-    numStudents: 0,
-    section: "S12"
-  }
-)
+# discm_s12 = Course.create!(
+#   {
+#     code: "STDISCM",
+#     name: "Distributed Computing",
+#     maxStudents: 45,
+#     numStudents: 0,
+#     section: "S12"
+#   }
+# )
 
-EnrolledCourse.create!({
-  grade: 3.5,
-  users_id: alice.id,
-  courses_id: discm_s11.id
-})
+# EnrolledCourse.create!({
+#   grade: 3.5,
+#   users_id: alice.id,
+#   courses_id: discm_s11.id
+# })
 
-EnrolledCourse.create!({
-  users_id: alice.id,
-  courses_id: ths_s11.id
-})
+# EnrolledCourse.create!({
+#   users_id: alice.id,
+#   courses_id: ths_s11.id
+# })
