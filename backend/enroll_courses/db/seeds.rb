@@ -97,14 +97,14 @@ courses.each do |course_attrs|
 end
 
 
-puts "Enrolling students in courses..."
+# puts "Enrolling students in courses..."
 
-enrollments = [
-  { student_id: 12100001, class_number: 2526 , grade: "4.0" },
-  { student_id: 12100001, class_number: 4345 , grade: "3.5" },
-]
+# enrollments = [
+#   { student_id: 12100001, class_number: 2526 , grade: "4.0" },
+#   { student_id: 12100001, class_number: 4345 , grade: "3.5" },
+# ]
 
-enrollments.each do |enrollment|
-  Enrollment.create!(enrollment)
-  puts "Enrolled student #{enrollment[:student_id]} in course #{enrollment[:class_number]} with grade #{enrollment[:grade]}"
-end
+# enrollments.each do |enrollment|
+#   Enrollment.create!(enrollment)
+#   puts "Enrolled student #{enrollment[:student_id]} in course #{enrollment[:class_number]} with grade #{enrollment[:grade]}"
+# end

@@ -5,64 +5,106 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-alice = User.create!({
-  id: 12100001,
-  first_name: "Alice",
-  last_name: "Kingsleigh",
-  middle_name: "W.",
-  password: "password123",
-  password_confirmation: "password123",
-  is_professor: false
-})
 
-sheldon = User.create!(
-  id: 12100009,
-  first_name: "Sheldon",
-  last_name: "Cooper",
-  middle_name: "L.",
-  password: "securepass456",
-  password_confirmation: "securepass456",
-  is_professor: true
-)
+puts "Creating users..."
 
-discm_s11 = Course.create!(
+users = [
   {
-    code: "STDISCM",
-    name: "Distributed Computing",
+    id: 12100001,
+    first_name: "Alice",
+    last_name: "Kingsleigh",
+    middle_name: "W.",
+    password: "password123",
+    password_confirmation: "password123",
+    is_professor: false
+  },
+  {
+    id: 12100009,
+    first_name: "Sheldon",
+    last_name: "Cooper",
+    middle_name: "L.",
+    password: "securepass456",
+    password_confirmation: "securepass456",
+    is_professor: true
+  }
+]
+
+users.each do |user|
+  User.create!(user)
+  puts "Created user: #{user[:first_name]} #{user[:last_name]}"
+end
+
+puts "Creating courses..."
+
+courses = [
+  { 
+    class_number: 2526,
+    code: 'GERIZAL',
+    name: 'Life and Works of Rizal',
     maxStudents: 45,
     numStudents: 0,
-    section: "S11"
-  }
-)
-
-ths_s11 = Course.create!(
-  {
-    code: "THS-ST2",
-    name: "Thesis in Software Technology 2",
-    maxStudents: 40,
-    numStudents: 0,
-    section: "S11"
-  }
-)
-
-discm_s12 = Course.create!(
-  {
-    code: "STDISCM",
-    name: "Distributed Computing",
+    section: 'Z21',
+    faculty_id: 0,
+    days: 'WS',
+    time: '12:45 - 14:15',
+    room: 'G102',
+    remarks: 'None'
+  },
+  { 
+    class_number: 2527,
+    code: 'GERIZAL',
+    name: 'Life and Works of Rizal',
     maxStudents: 45,
     numStudents: 0,
-    section: "S12"
+    section: 'Z22',
+    faculty_id: 0,
+    days: 'WS',
+    time: '14:30 - 16:00',
+    room: 'G101',
+    remarks: 'None'
+  },
+  { 
+    class_number: 4345,
+    code: 'STDISCM',
+    name: 'Distributed Computing',
+    maxStudents: 45,
+    numStudents: 0,
+    section: 'S11',
+    faculty_id: 1,
+    days: 'TF',
+    time: '14:30 - 16:00',
+    room: 'G103',
+    remarks: 'None'
+  },
+  { 
+    class_number: 4346,
+    code: 'STDISCM',
+    name: 'Distributed Computing',
+    maxStudents: 45,
+    numStudents: 0,
+    section: 'S12',
+    faculty_id: 1,
+    days: 'TF',
+    time: '12:45 - 14:15',
+    room: 'G103',
+    remarks: 'None'
   }
-)
+]
 
-EnrolledCourse.create!({
-  grade: 3.5,
-  users_id: alice.id,
-  courses_id: discm_s11.id
-})
+courses.each do |course_attrs|
+  Course.create!(course_attrs)
+  puts "Created course: #{course_attrs[:code]} - #{course_attrs[:name]}"
+end
 
-EnrolledCourse.create!({
-  grade: 3.0,
-  users_id: alice.id,
-  courses_id: ths_s11.id
-})
+
+puts "Enrolling students in courses..."
+
+enrollments = [
+  { student_id: 12100001, class_number: 2526 , grade: "4.0" },
+  { student_id: 12100001, class_number: 4345 , grade: "3.5" },
+]
+
+enrollments.each do |enrollment|
+  Enrollment.create!(enrollment)
+  puts "Enrolled student #{enrollment[:student_id]} in course #{enrollment[:class_number]} with grade #{enrollment[:grade]}"
+end
