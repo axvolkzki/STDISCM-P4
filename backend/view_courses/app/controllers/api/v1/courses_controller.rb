@@ -41,20 +41,23 @@ module Api
           token = request.headers['Authorization']&.split(' ')&.last
           return unless token
 
-          JwtService.decode(token) # Reuse your JWT service
-      rescue JWT::DecodeError
-          nil
+          begin
+            JwtService.decode(token)
+          rescue => e
+            Rails.logger.error "JWT Decode Failed: #{e.class} - #{e.message}"
+            nil
+          end
       end
 
       def current_user
           if decoded_token
-              user_id = decoded_token['user_id']
-              @user = User.find_by(id: user_id)
+            @current_user_payload
           end
       end
 
       def authorized
-        unless !!current_user
+        @current_user_payload = decoded_token
+        unless @current_user_payload
           render json: { message: 'Please log in' }, status: :unauthorized    
         end
       end
