@@ -7,4 +7,5 @@ class EnrolledCourse < ApplicationRecord
   # Validations
   validates :user_id, presence: true, numericality: { only_integer: true }
   validates :course_id, presence: true, numericality: { only_integer: true }
+  validates :grade, length: { maximum: 3 }, allow_nil: true
 end
