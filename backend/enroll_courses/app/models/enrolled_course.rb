@@ -1,8 +1,8 @@
 class EnrolledCourse < ApplicationRecord
   self.table_name = 'enrolled_courses'
   
-  belongs_to :user
-  belongs_to :course
+  belongs_to :user, foreign_key: "users_id"
+  belongs_to :course, foreign_key: "courses_id"
 
   # Validations
   validates :user_id, presence: true, numericality: { only_integer: true }
