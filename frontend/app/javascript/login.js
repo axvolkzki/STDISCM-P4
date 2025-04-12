@@ -67,33 +67,26 @@ document.addEventListener("DOMContentLoaded", function () {
             loginError.textContent = 'An error occurred. Please try again.';
         }
     });
-
-    // logout functionality
-    const logoutBtn = document.getElementById('logout-btn');
-    logoutBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        try {
-            localStorage.removeItem('jwt_token');
-            localStorage.removeItem('user_role');
-
-            alert("You have been logged out successfully.");
-            window.location.href = '/';
-        } catch (err) {
-            alert("Logout failed.");
-        }
-    });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
      // logout functionality
      const logoutBtn = document.getElementById('logout-btn');
-     logoutBtn.addEventListener('click', function (e) {
+     logoutBtn.addEventListener('click', async function (e) {
          e.preventDefault();
  
          try {
-             localStorage.removeItem('jwt_token');
-             localStorage.removeItem('user_role');
+            const response = await fetch('http://127.0.0.1:3001/api/v1/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("jwt_token")}`,
+                },
+                credentials: "include",
+            });
+
+            localStorage.removeItem('jwt_token');
+            localStorage.removeItem('user_role');
  
             // for debugging
             //  alert("You have been logged out successfully.");

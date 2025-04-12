@@ -31,11 +31,19 @@ module Api
           }, status: :created
         end
 
+        # def logout
+        #   raise AuthenticationError unless decoded_token && current_user
+        
+        #   current_user.update(last_logout_at: Time.current)
+        
+        #   render json: { message: 'Logged out successfully' }, status: :ok
+        # end
+
         def logout
-          raise AuthenticationError unless decoded_token && current_user
-        
+          raise AuthenticationError unless current_user 
+  
           current_user.update(last_logout_at: Time.current)
-        
+  
           render json: { message: 'Logged out successfully' }, status: :ok
         end
 
@@ -92,7 +100,11 @@ module Api
   
         def handle_unauthenticated
           render json: { error: 'Invalid ID Number or Password' }, status: :unauthorized
-        end        
+        end      
+        
+        def current_user
+          @current_user ||= User.find_by(id: decoded_token['user_id']) if decoded_token
+        end
       end
     end
   end

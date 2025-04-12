@@ -232,27 +232,6 @@ th {
     }
 }
 
-/* Drop Course Styles */
-.dropBtn {
-    background-color: rgb(162, 55, 55);
-    color: white;
-    font-weight: 600;
-    font-family: sans-serif;
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-    margin: 4px;
-    border-radius: 5px;
-    transition: transform 0.3s ease;  
-}
-
-.dropBtn:hover {
-    background-color: #e02717;
-    cursor: pointer;
-    transform: scale(1.05);  
-}
-
 /* for student view grades */
 .academic-year-container{
     display: flex;
