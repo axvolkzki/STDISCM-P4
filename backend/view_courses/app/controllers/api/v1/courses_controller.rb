@@ -7,34 +7,7 @@ module Api
       # GET /api/v1/courses
       def index
         @courses = Course.all
-
-        # ensure that the id of each course is included in the response
-        @courses = @courses.map do |course|
-          course.as_json.merge(id: course.id) # Add the id to the course JSON representation
-        end
         render json: @courses
-      end
-
-      # GET /api/v1/courses/search?code=STDISCM
-      def search
-        if params[:code].present?
-          code = params[:code].upcase.strip
-          courses = Course.where('UPPER(code) = ?', code)
-
-          # ensure that the id of each course is included in the response
-          courses = courses.map do |course|
-            course.as_json.merge(id: course.id) # Add the id to the course JSON representation
-            render json: courses, status: :ok
-          end
-
-          if courses.empty?
-            render json: { message: 'No courses found' }, status: :not_found
-          else
-
-          
-        else
-          render json: { error: "Missing 'code' query parameter" }, status: :bad_request
-        end
       end
 
       def decoded_token

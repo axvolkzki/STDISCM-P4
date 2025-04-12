@@ -32,8 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchStudentData();
-});
 
-Document.getElementById("student-viewgrades").addEventListener("click", function() {
-    
-})
+    document.getElementById("student-viewcourses").addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = '/viewcourse';
+    });
+
+    document.getElementById("student-enroll").addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = '/addclass';
+    });
+});
