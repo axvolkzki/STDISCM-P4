@@ -5,7 +5,9 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-User.create!([
+puts "Creating users... (upload_grades)"
+
+users = [
   {
     id: 12100001,
     first_name: "Alice",
@@ -24,4 +26,9 @@ User.create!([
     password_confirmation: "securepass456",
     is_professor: true
   }
-])
+]
+
+users.each do |user|
+  User.create!(user)
+  puts "Created user: #{user[:first_name]} #{user[:last_name]}"
+end
