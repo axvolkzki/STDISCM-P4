@@ -6,7 +6,7 @@
     color: #0c240b;
 }
 
-.error-message {
+#login-error {
     color: red;
     font-size: 0.75rem;
 }
@@ -31,4 +31,8 @@ height: auto;
 
 .loginBtn:hover {
     background-color: rgb(119, 168, 112);
+}
+
+.hidden {
+    display: none;
 }
