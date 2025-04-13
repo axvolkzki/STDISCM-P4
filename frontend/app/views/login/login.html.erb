@@ -1,3 +1,8 @@
+<% if !!@err %>
+  <h2>Error: Feature currently down or unavailable.</h2>
+  <p><%= @err %></p>
+<% end %>
+
 <div class="flex h-screen">
   <!-- Right Pane -->
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center" id="login-container">
