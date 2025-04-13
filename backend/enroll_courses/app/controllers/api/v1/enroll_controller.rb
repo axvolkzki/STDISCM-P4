@@ -25,28 +25,27 @@ module Api
           
 
         def enroll
-          course = Course.find_by(id: params[:course_id])
+            course = Course.find_by(id: params[:course_id])
   
-          unless course
-            return render json: { error: 'cannot find class' }, status: :not_found
-          end
+            unless course
+                return render json: { error: 'cannot find class' }, status: :not_found
+            end
   
-          if course.numStudents >= course.maxStudents
-            return render json: { error: 'This class is already full' }, status: :unprocessable_entity
-          end
+            if course.numStudents >= course.maxStudents
+                return render json: { error: 'This class is already full' }, status: :unprocessable_entity
+            end
   
-          if EnrolledCourse.exists?(users_id: current_user.id, courses_id: course.id)
-            return render json: { error: 'You already enrolled in this class' }, status: :conflict
-          end
-  
-          enrolled = EnrolledCourse.new(users_id: current_user.id, courses_id: course.id)
-  
-          if enrolled.save
-            course.increment!(:numStudents)
-            render json: { message: 'Enrollment successful :>', enrolled: enrolled }, status: :created
-          else
-            render json: { error: 'Enrollment failed XD XD XD' }, status: :unprocessable_entity
-          end
+            if EnrolledCourse.exists?(users_id: current_user.id, courses_id: course.id)
+                return render json: { error: 'You already enrolled in this class' }, status: :conflict
+            end
+
+            enrolled = EnrolledCourse.new(users_id: current_user.id, courses_id: course.id)
+            if enrolled.save
+                course.increment!(:numStudents)
+                render json: { message: 'Enrollment successful :>', enrolled: enrolled }, status: :created
+            else
+                render json: { error: 'Enrollment failed XD XD XD' }, status: :unprocessable_entity
+            end
         end
   
         def index

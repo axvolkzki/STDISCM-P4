@@ -5,9 +5,9 @@ class EnrolledCourse < ApplicationRecord
   belongs_to :course, foreign_key: "courses_id"
 
   # Validations
-  validates :user_id, presence: true, numericality: { only_integer: true }
-  validates :course_id, presence: true, numericality: { only_integer: true }
-  
+  validates :users_id, presence: true, numericality: { only_integer: true }
+  validates :courses_id, presence: true, numericality: { only_integer: true }
+
   # decimal for grades
   validates :grade, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 4 }, allow_nil: true
 
@@ -17,7 +17,7 @@ class EnrolledCourse < ApplicationRecord
   private
 
   def user_not_already_enrolled
-    if EnrolledCourse.exists?(user_id: user_id, course_id: course_id)
+    if EnrolledCourse.exists?(users_id: users_id, courses_id: courses_id)
       errors.add(:base, "User is already enrolled in this course")
     end
   end
